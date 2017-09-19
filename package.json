@@ -2,6 +2,7 @@
   "name": "duty-pick-web",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://duty-pick-server.herokuapp.com",
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
