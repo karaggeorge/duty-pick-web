@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import Helmet from 'react-helmet'
+import { Router, Route, Redirect, browserHistory, applyRouterMiddleware } from 'react-router';
+import { useScroll } from 'react-router-scroll';
+import { LogIn, SignUp, Rooms, Home } from 'components';
+import { MainLayout, LoggedInLayout } from 'components/layouts';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Helmet title="Duty Pick" />
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Helmet title="QU Res Life" />
+        <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
+          <Route component={MainLayout}>
+            <Route path='/' component={Home} />
+            <Route path='/login' component={LogIn} />
+            <Route path='/signup' component={SignUp} />
+
+            <Route component={LoggedInLayout} >
+              <Redirect from='/' to='/rooms' />
+              <Route path='/rooms' component={Rooms} />
+            </Route>
+          </Route>
+        </Router>
       </div>
     );
   }

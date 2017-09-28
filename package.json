@@ -2,15 +2,23 @@
   "name": "duty-pick-web",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://duty-pick-server.herokuapp.com",
   "dependencies": {
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.1.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13"
+    "react-scripts": "1.0.13",
+    "react-router-scroll": "0.4.3",
+    "react-router": "3.0.5",
+    "react-snapshot": "1.2.0",
+    "react-helmet": "5.2.0"
   },
   "scripts": {
-    "start": "NODE_PATH=src react-scripts start",
-    "build": "NODE_PATH=src react-scripts build && react-snapshot",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "NODE_PATH=src npm-run-all -p watch-css start-js",
+    "build": "NODE_PATH=src npm run build-css && NODE_PATH=src react-scripts build && react-snapshot",
     "test": "NODE_PATH=src react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
